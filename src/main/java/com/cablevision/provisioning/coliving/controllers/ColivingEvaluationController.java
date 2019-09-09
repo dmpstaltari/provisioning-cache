@@ -27,7 +27,7 @@ import com.cablevision.provisioning.coliving.services.IColivingRuleService;
 public class ColivingEvaluationController {
 
 	public static final String SOM = "SOM";
-	public static final String OPENDOORS = "OPENDOORS";
+	public static final String OPENDOOR = "OPENDOOR";
 	private final Logger log = LoggerFactory.getLogger(ColivingEvaluationController.class);
 
 	@Autowired
@@ -46,11 +46,11 @@ public class ColivingEvaluationController {
 		try {
 			colivingOperation = colivingOperationService.getColivingOperation(colivingEvaluationDto.getProvision(), colivingEvaluationDto.getOperation(), colivingEvaluationDto.getOption());
 		}catch (ResourceNotFoundException e) {
-			log.debug("Activation system: {}", OPENDOORS);
-			return ResponseEntity.ok(new ColivingEvaluationResponseDTO("OPENDOOR", "N/A"));
+			log.info("Activation system: {}", OPENDOOR);
+			return ResponseEntity.ok(new ColivingEvaluationResponseDTO(OPENDOOR, "N/A"));
 		}
 
-		log.debug("Activation system: {}", SOM);
+		log.info("Activation system: {}", SOM);
 		return ResponseEntity.ok(new ColivingEvaluationResponseDTO(SOM, colivingOperation.getAction()));
 	}
 
