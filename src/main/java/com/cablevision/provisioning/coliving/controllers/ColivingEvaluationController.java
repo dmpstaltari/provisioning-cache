@@ -51,6 +51,7 @@ public class ColivingEvaluationController {
 		}
 
 		log.info("Activation system: {}", SOM);
+        System.out.println("hi");
 		return ResponseEntity.ok(new ColivingEvaluationResponseDTO(SOM, colivingOperation.getAction()));
 	}
 
