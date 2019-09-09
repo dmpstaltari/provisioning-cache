@@ -50,7 +50,8 @@ public class ColivingEvaluationController {
 			return ResponseEntity.ok(new ColivingEvaluationResponseDTO(OPENDOOR, "N/A"));
 		}
 
-		log.info("Activation system: {}", SOM);
+		log.info("Activation system in: {}", SOM);
+        System.out.println("hi");
 		return ResponseEntity.ok(new ColivingEvaluationResponseDTO(SOM, colivingOperation.getAction()));
 	}
 
