@@ -26,6 +26,8 @@ import com.cablevision.provisioning.coliving.services.IColivingRuleService;
 @Validated
 public class ColivingEvaluationController {
 
+	public static final String SOM = "SOM";
+	public static final String OPENDOORS = "OPENDOORS";
 	private final Logger log = LoggerFactory.getLogger(ColivingEvaluationController.class);
 
 	@Autowired
@@ -38,16 +40,18 @@ public class ColivingEvaluationController {
 	@PostMapping
 	public ResponseEntity<ColivingEvaluationResponseDTO> evaluateColiving(@RequestBody @Valid ColivingEvaluationDTO colivingEvaluationDto) throws URISyntaxException {
 		log.info("Evaluating coliving operation: {}", colivingEvaluationDto);
-		
+
 		ColivingOperation colivingOperation;
-		
+
 		try {
 			colivingOperation = colivingOperationService.getColivingOperation(colivingEvaluationDto.getProvision(), colivingEvaluationDto.getOperation(), colivingEvaluationDto.getOption());
 		}catch (ResourceNotFoundException e) {
-			return ResponseEntity.ok(new ColivingEvaluationResponseDTO("OPENDOORS", "N/A"));
+			log.debug("Activation system: {}", OPENDOORS);
+			return ResponseEntity.ok(new ColivingEvaluationResponseDTO("OPENDOOR", "N/A"));
 		}
-		
-		return ResponseEntity.ok(new ColivingEvaluationResponseDTO("SOM", colivingOperation.getAction()));
+
+		log.debug("Activation system: {}", SOM);
+		return ResponseEntity.ok(new ColivingEvaluationResponseDTO(SOM, colivingOperation.getAction()));
 	}
 
 }
